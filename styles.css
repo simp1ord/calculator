@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#header {
+    background-color: #b3fcff;
+    display: flex;
+    justify-content: center;
+    padding:36px;
+    font-weight: bold;
+}
+
+#background {
+    background-color: #ccfdff;
+    display: flex;
+    padding: 100px;
+    justify-content: center;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    background-color: #cfd3d4;
+    border-radius: 20px;
+    height: 450px;
+    width: 400px;
+}
+
+#centerDisplay{
+    display: flex;
+    justify-content: center;
+}
+
+#displayContainer {
+    width: 360px;
+    height: 90px;
+    background-color: #f0f5f5;
+    margin: 16px;
+    display: flex;
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 30px;
+    font-weight: bolder;
+    padding: 16px;
+    flex-direction: column;
+
+}
+
+#answerDisplay {
+    font-size: 16px;
+}
+
+#centerButtons {
+    margin-bottom: 16px;
+}
+
+button{
+    font-size: 20px;
+    width: 75px;
+    height: 50px;
+    border-radius: 20px;
+    border: 1px solid grey; 
+    margin: auto;
+    padding: 0;
+    background-color: #f0f5f5;
+}
+
+#numButtons{
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    justify-content: space-evenly;
+}
+#numberInputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 250px;
+    gap: 5px;
+}
+
+#operatorInputs{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#footer {
+    display: flex;
+    justify-content: center;
+    background-color: #b3fcff;
+    padding: 30px;
+    font-weight: bold;
+}   
