@@ -1,7 +1,3 @@
-let operation = '';
-let numberOption = '';
-let operationNumber = [];
-let operationNumberTwo = [];
 const clearButton = document.getElementById('clear');
 const periodButton = document.getElementById('answer');
 const addButton = document.getElementById('add');
@@ -13,154 +9,184 @@ const allButtons = document.querySelectorAll('button');
 const numberDisplay = document.getElementById('numberDisplay');
 const answerDisplay = document.getElementById('answerDisplay');
 
+const numberStorage = {
+    inputNumbers : [],
+    operator : '',
+    finalNumbers : [],
+    answerNumber : [],
+};
+    
 const clearCalc = () => {
-    numberDisplay.innerHTML = '';
-    answerDisplay.innerHTML = '';
-    operation = '';
-    operationNumber = [];
-    operationNumberTwo = [];
-    console.log(operationNumber);
-}
+    numberStorage.inputNumbers = [];
+    numberStorage.operator = '';
+    numberStorage.finalNumbers = [];
+    numberStorage.answerNumber = [];
+    answerDisplay.innerText = '';
+    numberDisplay.innerText = '';
+};
 
 const periodAdder = () => {
-    if (operationNumber.find(numb => numb === '.')) {
-        console.log(operationNumber);
-    }else {
-        operationNumber.push('.');
-        const miniNumber = document.createElement('div');
-        miniNumber.textContent = '.';
-        numberDisplay.appendChild(miniNumber);  
-        console.log(operationNumber); 
+    if(numberStorage.inputNumbers.find(characters => characters === '.')) {
+    console.log('do nothing')
+    } else{
+        const miniNumberDisplay = document.createElement('div')
+        miniNumberDisplay.innerText = `.`;
+        numberDisplay.appendChild(miniNumberDisplay);
+        numberStorage.inputNumbers.push('.');
     }
 }
+
 
 clearButton.addEventListener('click', () => {
-    clearCalc();
+    clearCalc()
 });
-
 periodButton.addEventListener('click', () => {
-    periodAdder();
+   periodAdder();
 });
-
 addButton.addEventListener('click', () => {
-    let operation = '+';
-    let arrayToString = operationNumber.toString().replace(/[,]/g,'');
-    let NumOne = parseFloat(arrayToString);
-    operationNumber = [];
-    operationNumberTwo.push(NumOne);
-    numberControl(operation, operationNumberTwo);
+    if(numberStorage.answerNumber[0] != undefined){
+        let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+        numberStorage.finalNumbers.push(bigNum);
+        numberStorage.inputNumbers = [];
+        let finalNumber = parseFloat(numberStorage.finalNumbers.toString());
+        numberDisplay.innerText = '';
+        add(finalNumber, numberStorage.answerNumber[0]);
+    }else{
+        numberStorage.operator = '+';
+        let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+        numberStorage.finalNumbers.push(bigNum);
+        numberStorage.inputNumbers = [];
+        numberDisplay.innerText = '';
+    }
 });
 subtractButton.addEventListener('click', () => {
-    let operation = '-';
-    let arrayToString = operationNumber.toString().replace(/[,]/g,'');
-    let NumOne = parseFloat(arrayToString);
-    operationNumber = [];
-    operationNumberTwo.push(NumOne);
-    numberControl(operation, operationNumberTwo);
+    if(numberStorage.answerNumber[0] != undefined){
+        let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+        numberStorage.finalNumbers.push(bigNum);
+        numberStorage.inputNumbers = [];
+        let finalNumber = parseFloat(numberStorage.finalNumbers.toString());
+        numberDisplay.innerText = '';
+        subtract(finalNumber, numberStorage.answerNumber[0]);
+    } else{
+    numberStorage.operator = '-';
+    let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+    numberStorage.finalNumbers.push(bigNum);
+    numberStorage.inputNumbers = [];
+    numberDisplay.innerText = '';
+    }
 });
 multiplyButton.addEventListener('click', () => {
-    let operation = '*';
-    let arrayToString = operationNumber.toString().replace(/[,]/g,'');
-    let NumOne = parseFloat(arrayToString);
-    operationNumber = [];
-    operationNumberTwo.push(NumOne);
-    numberControl(operation, operationNumberTwo);
+    if(numberStorage.answerNumber[0] != undefined){
+        let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+        numberStorage.finalNumbers.push(bigNum);
+        numberStorage.inputNumbers = [];
+        let finalNumber = parseFloat(numberStorage.finalNumbers.toString());
+        numberDisplay.innerText = '';
+        multiply(finalNumber, numberStorage.answerNumber[0]);
+    } else{
+    numberStorage.operator = '*';
+    let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+    numberStorage.finalNumbers.push(bigNum);
+    numberStorage.inputNumbers = [];
+    numberDisplay.innerText = '';
+    }
 });
 divideButton.addEventListener('click', () => {
-    let operation = '/';
-    let arrayToString = operationNumber.toString().replace(/[,]/g,'');
-    let NumOne = parseFloat(arrayToString);
-    operationNumber = [];
-    operationNumberTwo.push(NumOne);
-    numberControl(operation, operationNumberTwo);
+    if(numberStorage.answerNumber[0] != undefined){
+        let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+        numberStorage.finalNumbers.push(bigNum);
+        numberStorage.inputNumbers = [];
+        let finalNumber = parseFloat(numberStorage.finalNumbers.toString());
+        numberDisplay.innerText = '';
+        divide(finalNumber, numberStorage.answerNumber[0]);
+    } else{
+    numberStorage.operator = '/';
+    let bigNum = numberStorage.inputNumbers.toString().replace(/[,]/g, '');
+    numberStorage.finalNumbers.push(bigNum);
+    numberStorage.inputNumbers = [];
+    numberDisplay.innerText = '';
+    }
 });
 equalButton.addEventListener('click', () => {
-    numberControl(operation, operationNumberTwo);
-    numberDisplay.innerHTML = '';
-});
-
-const numberControl = (operationInput, numberArray) => {
-    if (numberArray.length === 2){
-        if(operationInput === '+') {
-            let wholeNum = numberArray.reduce((a,b) => a+b, 0)
-            answerDisplay.innerText = `${wholeNum}`;
-            operationNumberTwo = [];
-            numberDisplay.innerHTML = '';
-        }else if (operationInput === '-'){
-            let wholeNum = numberArray.reduce((a,b) => a-b, 0)
-            answerDisplay.innerText = `${wholeNum}`;
-            operationNumberTwo = [];
-            numberDisplay.innerHTML = '';
-        }else if (operationInput === '*'){
-            let wholeNum = numberArray.reduce((a,b) => a*b, 1)
-            answerDisplay.innerText = `${wholeNum}`;
-           operationNumberTwo = [];
-           numberDisplay.innerHTML = '';
-        }else if(operationInput === '/') {
-            let wholeNum = numberArray.reduce((a,b) => a/b, 0)
-            answerDisplay.innerText = `${wholeNum}`;
-            operationNumberTwo = [];
-            numberDisplay.innerHTML = '';
-        }
+    if(numberStorage.answerNumber[0] != undefined){
+        let finalNumOne = numberStorage.answerNumber[0]
+        let finalNumTwo = parseFloat(numberStorage.inputNumbers.toString().replace(/[,]/g, ''));
+        operate(numberStorage.operator, finalNumOne, finalNumTwo);
+        numberStorage.inputNumbers = [];
+        numberDisplay.innerText = '';
+    } else{
+    let finalNumOne = parseFloat(numberStorage.inputNumbers.toString().replace(/[,]/g, ''));
+    let finalNumTwo = parseFloat(numberStorage.finalNumbers.toString());
+    operate(numberStorage.operator, finalNumOne, finalNumTwo);
+    numberStorage.inputNumbers = [];
+    numberDisplay.innerText = '';
     }
-};
+}); 
 
-const add = (arrayNumber) => {
-    let sum = addNumOne + addNumTwo;
+
+
+const add = (numOne, numTwo) => {
+    numberStorage.answerNumber = [];
+    let sum = numTwo + numOne;
     answerDisplay.textContent = `${sum}`;
-    return(sum);
+    numberStorage.finalNumbers = [];
+    numberStorage.answerNumber.push(sum);
 };
-const subtract = (subNumOne,subNumTwo) => {
-    let remainder = subNumOne - subNumTwo;
+const subtract = (numOne, numTwo) => {
+    numberStorage.answerNumber = [];
+    let remainder = numTwo - numOne;
     answerDisplay.textContent = `${remainder}`;
-    return(remainder);
+    numberStorage.finalNumbers = [];
+    numberStorage.answerNumber.push(remainder);
 };
-const multiply = (multNumOne, multNumTwo) => {
-    let product = multNumOne * multNumTwo;
+const multiply = (numOne, numTwo) => {
+    numberStorage.answerNumber = [];
+    let product = numTwo * numOne;
     answerDisplay.textContent = `${product}`;
-    return(product);
+    numberStorage.finalNumbers = [];
+    numberStorage.answerNumber.push(product);
 };
-const divide = (divNumOne, divNumTwo) => {
-    let dividend = divNumOne / divNumTwo;
-    answerDisplay.textContent = `${dividend}`;
-    return(dividend);
+const divide = (numOne, numTwo) => {
+    numberStorage.answerNumber = [];
+    if(numOne === 0){
+        alert('What Do you think you are doing? No dividing by 0!');
+        document.location.reload(true);
+    } else{
+        let dividend = numTwo / numOne;
+        answerDisplay.textContent = `${dividend}`;
+        numberStorage.finalNumbers = [];
+        numberStorage.answerNumber.push(dividend);
+    }
+    
 };
 
-
-
-const operate = (operator, numOne, prevInput) => {
-    operator === '+' ? add(numOne, prevInput)
-    :   operator === '-' ? subtract(numOne, prevInput)
-    :   operator === '*' ? multiply(numOne, prevInput)
-    :   operator === '/' ? divide(numOne, prevInput)
+const operate = (operator, numOne, numTwo) => {
+    operator === '+' ? add(numOne, numTwo)
+    :   operator === '-' ? subtract(numOne, numTwo)
+    :   operator === '*' ? multiply(numOne, numTwo)
+    :   operator === '/' ? divide(numOne, numTwo)
     :   numberDisplay.textContent = 'ERROR';
-}
-
-const inputDisplay = (inputButton) => {  
-    inputButton === 10 ? console.log('filler') 
-    :   inputButton === 11 ? console.log('filler')
-    :   inputButton === 12 ? (miniNumber = document.createElement('div'), miniNumber.textContent = '+', 
-                                numberDisplay.appendChild(miniNumber))
-    :   inputButton === 13 ? (miniNumber = document.createElement('div'), miniNumber.textContent = '-', 
-                                numberDisplay.appendChild(miniNumber)) 
-    :   inputButton === 14 ? (miniNumber = document.createElement('div'), miniNumber.textContent = '*', 
-                                numberDisplay.appendChild(miniNumber)) 
-    :   inputButton === 15 ? (miniNumber = document.createElement('div'), miniNumber.textContent = '/', 
-                                numberDisplay.appendChild(miniNumber))
-    :   inputButton === 16 ? console.log('filler')
-    :   (miniNumber = document.createElement('div'), miniNumber.textContent = `${inputButton}`, 
-             numberDisplay.appendChild(miniNumber));
 };
+
+const inputDisplay = (input) => {
+    const miniNumberDisplay = document.createElement('div')
+    miniNumberDisplay.innerText = `${input}`;
+    numberDisplay.appendChild(miniNumberDisplay);
+    numberStorage.inputNumbers.push(input);
+};
+
 
 for (let input = 0; input < allButtons.length; input++){ 
     allButtons[input].addEventListener('click', () => setTimeout(() =>  {
         allButtons[input].style.backgroundColor = '#adb3b3';
-        inputDisplay(input);
-        input <= 9 ? operationNumber.push(input) : console.log('nothing');
-        console.log(operationNumber);
+        input < 10 ? inputDisplay(input) 
+        : console.log('filer');
     }));    
     
     allButtons[input].addEventListener('click', () => setTimeout(() => {
         allButtons[input].style.backgroundColor = '#f0f5f5';
     }, 100));
 };
+
+
+//heheheha
