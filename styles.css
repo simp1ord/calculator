@@ -58,6 +58,10 @@ body{
     font-size: 16px;
 }
 
+#numberDisplay {
+    display: flex;
+}
+
 #centerButtons {
     margin-bottom: 16px;
 }
